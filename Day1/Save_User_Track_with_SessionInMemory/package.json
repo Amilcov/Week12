@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "PGUSER=session_example_app PGPASSWORD=session_example_app PGDATABASE=session_example nodemon app.js"
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
