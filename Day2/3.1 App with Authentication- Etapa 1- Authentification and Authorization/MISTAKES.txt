@@ -1,0 +1,106 @@
+1. in routes: 
+
+    OK: const db = require('../db/models');
+    !OK: const db = require('../config/index')
+
+    PT ca in routes avem nevoie de DB din models ca sa interogam DB:
+    db.User.findByPk()
+
+2. 
+
+    OK: require('express-validator')
+   !OK: require('express-validation')
+
+
+3. 
+
+   OK: input(type='hidden' name='_csrf'
+  !OK: input(type='hidden' name='_csurf'
+
+
+
+4.   in routes
+   OK: const db 
+   !OK:  const { db }   
+
+
+5.  TypeError: Cannot read property 'User' of undefined
+
+     OK:  module.exports = router;    //in routes/user.js
+    !OK:  sa uit sa export router ul dintr-un file de routes
+
+
+6.   
+      OK:  express-validate
+     !OK:  express-validator
+
+7.
+  OK:  const x = validateResult(req);
+  !OK  const x = validateResult(y);
+
+    unde const {check, validateResult} = require('express-validate')
+
+
+8. 
+     OK: router.post(....., TB1Validators, )    
+    !OK: router.post(....., validateResult, )   
+
+          unde TB1Validators = [
+            check('col1')
+                .exists({checkFalsy: true})
+                .withMessage('Pls provide a value for col1')
+                .isLength({max: 100})
+                .withMessage('Pls provide a valid value no more then 1oo chars for col1'),
+            check ('col2')
+                 .......
+          ]
+
+
+
+
+
+7. boostrap
+   OK: .btn-warning
+  !OK: .btn-waranty
+
+
+8. 
+
+   OK:    .exists({checkFalsy: true})
+  !OK:    .exists()
+
+        in context: 
+                TB1Validators = [
+                    check('col1')
+                    .exists({checkFalsy: true}
+                ]  
+
+9. 
+
+ OK:  return res.render('...
+!OK:  res.render('...
+
+     cand maoi urmeaza in acc router  handler si alte res.render, pt a opti  executia pe  router handlerul respectiv
+
+
+10.
+
+ OK:    collection.isEmpty()
+!OK:   collection.isEmpty
+
+
+11. 
+
+OK:   await bcrypt.compare(passwordProvided, user.password.toString())
+!OK:  await bcrypt.compare(passwordProvided, user.password)
+
+     pt ca in db user.password intoarce octeti 
+     pt a transforma octetii in toString  65.toString()  -> A
+
+
+
+12.
+  OK:  x = A.B.x
+  OK:  { x } = A.B
+
+  !OK:  {x} = A.B.x
