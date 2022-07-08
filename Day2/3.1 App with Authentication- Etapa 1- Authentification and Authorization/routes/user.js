@@ -41,7 +41,13 @@ const userValidators = [
       .isLength({max: 255})
       .withMessage('Please provide a value no more then 255 chars for Email Addresss')
       .isEmail()
-      .withMessage('Email Address is not a valid email'),
+      .withMessage('Email Address is not a valid email')
+      .custom((value) => {
+              return db.User.findOne({ where: { emailAddress: value}})
+             .then( user => {
+                        if(user) return Promise.reject('The provided email Address is already in use by other account');
+             });
+      }),         
 
 
     check('password')
@@ -50,13 +56,7 @@ const userValidators = [
       .isLength({max: 50})
       .withMessage('Please provide a value no more then 255 chars for Password')
       .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
-      .withMessage('Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")')
-      .custom ( value => {
-            return db.User.findOne( {where: { emailAddress: value }})
-                .then(user => {
-                                if (user) reject ('The provided Email Address is already in use by another account');
-                });
-      }),
+      .withMessage('Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")'),
 
     check('confirmPassword')
       .exists({checkFalsy: true})
