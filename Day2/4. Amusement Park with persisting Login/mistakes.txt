@@ -1,0 +1,114 @@
+
+1.  -> in psql
+
+     OK:  createdb  
+    !OK:  dbcreate
+
+             ex: create user X with password 'X' createdb;  
+
+2.  -> .env
+
+     OK: PORT
+    !OK: DB_PORT
+
+
+3. 
+
+     OK:   in folderul app(unde exista package.json): npm install
+    !OK:   in alt folder 
+
+                EX: myApp/ express-myApp/ ....all files..
+                                        / ... package.json
+
+                     OK:  express-myApp -> npm install
+                    !OK: myApp-> npm install
+
+
+4.  
+
+     OK:   SESSION_SECRET=uid_value
+    !OK:   SESSION_SECRET='uid_value'
+
+
+
+5.  -> xrouter.js
+
+     OK: module.exports = router;
+    !OK: forget to export
+
+6.  ->app.js
+
+       OK: import xrouter;
+      !OK: forget to import xrouter;
+               Example:
+                       ..........
+                   const xRoutes = require('./routes/user.js);                  
+                   app.use(xRoutes); 
+                        ..........
+
+
+
+7. 
+
+     OK:  validationResult     / verb/ action
+    !OK:  validatatorResult    /subst
+
+                    in context:
+                         const {check, validatorResult} = require('express-validator');
+                         Nota: 
+                               - e verb/action NU SUbstantiv!!
+                               - e accesi denumire ca lib importata express-validator!!
+
+8. 
+
+       OK:  validationResult(req)
+            const userValidators= [ check('c1')
+                                      .exists()
+                                      .withMessage('Give value');
+                                      ....
+                                  ]
+
+           validatorErrors =  validationResult(req);
+                  Nota:
+                        validationResult    validat-ION
+                        validatorErrors     validat-OR
+                        tb1Validators (~ predators)
+
+     !OK:   -
+
+9.
+    OK: validationResult
+   !OK:validatorResult
+                  Context: const { check, validationResult } = require('express-validator')
+
+
+
+10.  -pug - if
+            OK:     if x
+            !OK:    if(x)
+
+
+ 
+11.   - forget param id
+     OK: ...tb.finfByPk(tb_id)
+    !OK: ..tb.findByPk()
+
+    
+
+12.
+
+
+
+                              
+
+            
+
+
+
+
+
+
+
+
+
+              
