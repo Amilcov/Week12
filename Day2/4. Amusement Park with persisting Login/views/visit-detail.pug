@@ -1,0 +1,23 @@
+extends layout.pug 
+include utils.pug 
+
+block content
+  div.py-2
+ 
+
+
+    div
+      ul  
+        li= `Visited On: ${visit.visitedOn}`
+        li= `Raiting: ${visit.raiting}`
+        li= `Comments: ${visit.comments}`
+
+    div.py-4
+      a.btn.btn-primary(ahref=`/visit/${visit.id}/edit`) Edit 
+      a.btn.btn-danger.ml-2(ahref=`/visit/${visit.id}/delete`) Delete 
+      a.btn.btn-warning.ml-2(ahref=`/attraction/${visit.attractionId}`) Return to Attraction Details
+
+
+
+
+  
