@@ -1,0 +1,15 @@
+extends layout.pug 
+include utils.pug
+
+block content 
+  h3(class='pb-3'): em for Attraction #{visit.attraction.attractionName}
+  h3(class='pb-3'): em for Park #{park.parkName}
+  +validationErrorSummary(errors)
+  form(method='post' action=`/visit/edit/${visit.id}`)
+    include visit-form-fields.pug
+    div.py-4
+      button.btn.btn-primary(type='submit') Update Visit 
+      a.btn.btn-warning.ml-2(href=`/visit/${visit.id}`) Cancel
+
+  
+  

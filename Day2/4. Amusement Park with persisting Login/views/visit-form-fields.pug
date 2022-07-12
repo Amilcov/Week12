@@ -1,0 +1,6 @@
+include utils.pug 
+
+input(type='hidden' name='_csrf' value= csrfToken) 
++field('Visited On:', 'visitedOn', visit.visitedOn, 'text', 'Ex: 2020-10-30')
++field('Raiting:', 'raiting', visit.raiting, 'number')
++field('Comments:', 'comments', visit.comments, 'text')

@@ -1,0 +1,19 @@
+extends layout.pug 
+
+block content 
+  h3: em at Attraction: #{visit.attraction.attractionName}
+  h4: em at Park: #{park.parkName}
+  
+  div
+    ul  
+      li= `Visited On: ${visit.visitedOn}`
+      li= `Raiting: ${visit.raiting}`
+      li= `Comments: ${visit.comments}`
+
+  div(class='py-4')
+    p Proceed with deleting this visit?
+  div
+    form(action=`/visit/delete/${visit.id}` method='post')
+      input(type='hidden' name='_csrf' value=csrfToken)
+      button(class='btn btn-danger' type='submit') Delete Visit
+      a(class='btn btn-warning ml-2' href=`/visit/${visit.id}` role='button') Cancel

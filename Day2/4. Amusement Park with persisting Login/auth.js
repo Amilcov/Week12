@@ -3,12 +3,11 @@ const db = require('./db/models');
 
 const loginUser = (req, res, user) => {
     req.session.auth = { userId: user.id};
-    console.log('__loginUser', req.session);
 };
 
 
 const restoreUser = async(req, res, next) => {
-        console.log(req.session);
+        //console.log(req.session);
     
     if (req.session.auth) {
         const userId = req.session.auth.userId;
@@ -19,6 +18,7 @@ const restoreUser = async(req, res, next) => {
             if(user) {
                  res.locals.authenticated = true;
                  res.locals.user = user;
+                 console.log('auth restoreUser- USER:', user);
                  next();
             } else {
                 res.locals.authenticated = false;
@@ -38,19 +38,11 @@ const restoreUser = async(req, res, next) => {
 };
 
 
-const authenticateUser = async(req, res, next) => {
-    
-      if(res.local.authenticated) {
-        userId = res.locals.userId;
-        const user = await db.User.findByPk();
-
-        if (user.id === userId) {
-           next(); 
-        } else {
-          res.local.authenticated = false;
-        };
-
+const requireAuth = (req, res, next) => {
+      if(!res.locals.authenticated) {
+         return res.redirect('/user/login');
       };
+      next();
 };
 
 const logoutUser = (req, res) => {
@@ -60,6 +52,6 @@ const logoutUser = (req, res) => {
 module.exports = {
     loginUser,
     restoreUser,
-    authenticateUser,
+    requireAuth,
     logoutUser
 }

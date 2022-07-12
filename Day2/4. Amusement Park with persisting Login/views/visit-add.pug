@@ -6,10 +6,7 @@ block content
   h3(class='pb-3'): em for #{attraction.attractionName}
   +validationErrorSummary(errors)
   form(method='post' action=`/attraction/${attraction.id}/visit/add`) 
-    input(type='hidden' name='_csrf' value= csrfToken) 
-    +field('Visited On:', 'visitedOn', visit.visitedOn, 'text', 'Ex: 2020-10-30')
-    +field('Raiting:', 'raiting', visit.raiting, 'number')
-    +field('Comments:', 'comments', visit.comments, 'text')
+    include visit-form-fields.pug 
     div.py-4
       button.btn.btn-primary(type='submit') Add Visit
       a.btn.btn-warning.ml-2(href=`/attraction/${visit.attractionId}` role='button') Cancel

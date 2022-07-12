@@ -9,8 +9,11 @@ const router = express.Router();
 
 router.get('/attraction/:id(\\d+)', asyncHandler(async (req, res) => {
   const attractionId = parseInt(req.params.id, 10);
-  const attraction = await db.Attraction.findByPk(attractionId, { include: ['park'] });
-  res.render('attraction-detail', { title: 'Attraction Detail', attraction });
+  const attraction = await db.Attraction.findByPk(attractionId, { include: ['park', 'visits']});
+  const visits = await db.AttractionVisit.findAll({
+    where: { attractionId: attractionId },
+    order: [['visitedOn', 'DESC'], 'raiting', 'comments']})
+  res.render('attraction-detail', { title: 'Attraction Detail', attraction, visits });
 }));
 
 const attractionValidators = [

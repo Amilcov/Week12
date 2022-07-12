@@ -93,11 +93,66 @@
      OK: ...tb.finfByPk(tb_id)
     !OK: ..tb.findByPk()
 
-    
-
-12.
 
 
+12. -------------------------------error:  ForbiddenError: invalid csrf token
+
+
+         OK:        name='_csrf'
+        !OK:        name='_csurf'
+
+             context:  input(type='hidden' name='_csrf' value= csrfToken) 
+
+           
+          
+
+
+13.
+
+
+             OK:   const attractionId = parseInt(req.params.attractionId, 10);
+            !OK:   const attractionId = parseInt(req.params.id, 10); 
+
+                         CONTEXT: router.get('/attraction/:attractionId(\\d+)/visit/add', csrfProtection, asyncHandler(async (req, res) => {
+
+
+
+14.           -pt insert DB
+
+            OK1:  user = db.User.build({
+                                        field1,
+                                        field2,
+                                    }) 
+
+
+
+            OK2:  user = db.User.build({
+                                        field1,
+                                        field2,
+                                        createdAt: new Date(),
+                                        updatedAt: new Date(),
+                                    }) 
+
+
+            !OK:  user ={
+                          field1,
+                          field2,
+                        })
+                    
+
+
+             pt ca mai sunt  si alte campuri createdAt, updatedAt pe care build ul se completeaza by default
+              or    
+                 
+
+
+
+15: 
+
+     OK:  (\\d+)
+    !OK:  (\\+d) 
+                CONTEXT:  router.get('/visit/:id(\\d+)'
+                ERR: Nu gasea ruta 
 
                               
 

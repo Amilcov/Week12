@@ -3,9 +3,8 @@ include utils.pug
 
 block content
   div.py-2
- 
-
-
+    h3: em at Attraction: #{visit.attraction.attractionName}
+    h4: em at Park: #{park.parkName}
     div
       ul  
         li= `Visited On: ${visit.visitedOn}`
@@ -13,9 +12,12 @@ block content
         li= `Comments: ${visit.comments}`
 
     div.py-4
-      a.btn.btn-primary(ahref=`/visit/${visit.id}/edit`) Edit 
-      a.btn.btn-danger.ml-2(ahref=`/visit/${visit.id}/delete`) Delete 
-      a.btn.btn-warning.ml-2(ahref=`/attraction/${visit.attractionId}`) Return to Attraction Details
+      if locals.authenticated
+        if visit.userId === locals.user.id
+          a.btn.btn-primary(href=`/visit/edit/${visit.id}`) Edit 
+          a.btn.btn-danger.ml-2(href=`/visit/delete/${visit.id}`) Delete 
+      a.btn.btn-warning.ml-2(href=`/attraction/${visit.attractionId}`) Return to Attraction Details
+    
 
 
 

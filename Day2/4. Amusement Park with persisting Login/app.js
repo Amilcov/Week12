@@ -12,6 +12,7 @@ const userRoutes = require('./routes/user');
 const indexRoutes = require('./routes');
 const parkRoutes = require('./routes/park');
 const attractionRoutes = require('./routes/attraction');
+const visitRoutes = require('./routes/visit');
 
 
 const app = express();
@@ -31,10 +32,13 @@ app.use(session({
 app.use(express.urlencoded({ extended: false }));
 
 app.use(restoreUser);
+
 app.use(userRoutes);
 app.use(indexRoutes);
 app.use(parkRoutes);
 app.use(attractionRoutes);
+app.use(visitRoutes);
+
 
 // Catch unhandled requests and forward to error handler.
 app.use((req, res, next) => {
