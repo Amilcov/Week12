@@ -1,8 +1,10 @@
 const express = require('express');
 const db = require('../db/models');
+const { check, validationResult } = require('express-validator');
+const cors = require('cors');
 
 const { task } = db;
-const { check, validationResult } = require('express-validator');
+
 
 const router = express.Router();
 
@@ -43,18 +45,20 @@ const taskNotFound = (id) => {
 };
 
 
-router.get('/', asyncHandler(async (req, res) => {
+router.get('/', cors(), asyncHandler(async (req, res) => {
     const tasks = await db.Task.findAll();
     res.json({ tasks });
 })); 
 
 
-router.post('/', validateTask, handlerValidationErrors, asyncHandler(async (req, res) => {
+router.post('/', cors() ,validateTask, handlerValidationErrors, asyncHandler(async (req, res) => {
     const { name } = req.body;
     const task = await db.Task.create({name});
     res.status(201).json({ task });
   
 }));
+
+router.options('/', cors());
 
 
 router.get('/:id(\\d+)',validateTask, handlerValidationErrors, asyncHandler( async(req, res, next) => {
