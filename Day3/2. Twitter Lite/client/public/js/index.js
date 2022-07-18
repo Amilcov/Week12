@@ -1,18 +1,19 @@
 
 document.addEventListener('DOMContentLoaded', async() => {
   try {
-    //const tweetsContainer = document.querySelector('.tweets-container');
-
-    const res = await fetch("http://localhost:8080/tweets/");
+                                                  
+    const res = await fetch("http://localhost:8080/tweets");
     const {tweets} = await res.json();
-    console.log(tweets);
-
-    // const tweetElement = tweets.map( tweet => `
-    //     div.card
-    //     p.card-text ${message}
-    // `);
-
-    // tweetsContainer.innerHTML = tweetElement.join('');
+ 
+    const tweetsContainer = document.querySelector('.tweets-container');
+    const tweetsHTLM = tweets.map( ({message}) => `
+        <div class='card'>
+          <div class='card-body'>
+            <p class='card-text'> ${message} </p>
+          </div>  
+        </div>   
+    `);
+    tweetsContainer.innerHTML = tweetsHTLM.join('');
   } catch (err) {
     console.error(err);
   }
