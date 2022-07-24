@@ -1,0 +1,13 @@
+extends layout.pug 
+block content 
+  div.sign-up-container
+    div.errors-container 
+    h2 Sign Up
+    form.sign-up-form
+      .form-group
+        label(for='username') Username:
+        input#username.form-control(type='text' name='username', placeHolder='Username')
+      include auth-form-fields.pug
+      button.btn.btn-primary(type='submit') Sign Up
+    a(href='/log-in') Already have an account? Log in here.
+  script(src='js/sign-up.js')   

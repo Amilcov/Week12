@@ -1,0 +1,10 @@
+extends layout.pug 
+block content 
+  div.log-in-in-container 
+    div.errors-container  
+    h2 Log in 
+    form.log-in-form
+      include auth-form-fields.pug 
+      button.btn.btn-primary(type='submit') Log in
+    a.btn-btn-warning(href='/sign-up') Don't have an accout yet? Sign up here.
+    script(src='js/log-in.js')    
