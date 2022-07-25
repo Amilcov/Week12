@@ -1,34 +1,30 @@
-'use strict';
-const bcrypt = require('bcryptjs');
+"use strict";
+const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    username: {
-      allowNull: false,
-      type: DataTypes.STRING,
-      unique: true
+  const User = sequelize.define(
+    "User",
+    {
+      email: { type: DataTypes.STRING, allowNull: false, unique: true },
+      username: { type: DataTypes.STRING, allowNull: false, unique: true },
+      hashedPassword: {
+        type: DataTypes.STRING.BINARY,
+        allowNull: false,
+      },
     },
-    email:{
-      allowNull: false,
-      type:  DataTypes.STRING,
-      unique: true
-    },
-    hashedPassword: {
-      allowNull: false,
-      type: DataTypes.STRING.BINARY
-    }
-  }, {});
-  User.associate = function(models) {
-    // associations can be defined here
+    {}
+  );
+  User.associate = function (models) {
     User.hasMany(models.Tweet, {
-      as: 'tweets',
-      foreignkey: 'userId'
+      as: "tweets",
+      foreignKey: "userId",
     });
   };
 
   User.prototype.validatePassword = function (password) {
+    // because this is a model instance method, `this` is the user instance here:
     return bcrypt.compareSync(password, this.hashedPassword.toString());
   };
-  
+
   return User;
 };

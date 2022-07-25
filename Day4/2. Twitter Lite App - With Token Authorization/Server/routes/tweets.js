@@ -34,7 +34,7 @@ router.get('/', asyncHandler( async(req, res) => {
       order: [["createdAt", "DESC"]],
       attributes: ["message"]
    });
-   
+
   res.json({tweets});
 }));
 
@@ -71,12 +71,23 @@ router.put('/:id(\\d+)', tweetValidators, handlerValidationErrors, asyncHandler(
  }));
 
 
- router.delete('/:id(\\d+)', asyncHandler( async(req, res, next) => {
+ router.delete('/:id(\\d+)', 
+   requireAuth, 
+   asyncHandler( async(req, res, next) => {
+
       const tweetId = parseInt(req.params.id, 10);
       const tweet = await db.Tweet.findByPk(tweetId);
+
       if(tweet) { 
-         await tweet.destroy();
-         res.status(204).end();
+     
+         if (tweet.userId == req.user.id) {
+ 
+            await tweet.destroy();
+            res.status(204).end();
+         } else {
+            res.status(401).end();
+         }
+        
       } else {
         next(twweetNotFoundError());
       }
