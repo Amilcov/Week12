@@ -30,6 +30,7 @@ loginForm.addEventListener('submit' , async (e) => {
         window.location.href = '/';
 
     } catch(err) {
+        
         if (err.status >= 400 && err.status < 600) {
             
             const errorsJSON = await err.json();
